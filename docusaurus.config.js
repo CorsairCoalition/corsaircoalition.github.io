@@ -59,9 +59,9 @@ const config = {
         respectPrefersColorScheme: true,
       },
       navbar: {
-        title: 'CorsairCoalition',
+        title: 'Generally Genius',
         logo: {
-          alt: 'Corsair Coalition',
+          alt: 'Generally Genius',
           src: 'img/logo.png',
         },
         items: [
