@@ -26,6 +26,11 @@ export default function Homepage() {
                 to="/introduction">
                 Get Started
               </Link>
+              <Link
+                className="button button--secondary button--lg"
+                to="https://generals.io">
+                Play generals.io
+              </Link>
             </div>
           </div>
         </header>
