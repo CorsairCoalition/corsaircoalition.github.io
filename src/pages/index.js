@@ -29,7 +29,7 @@ export default function Homepage() {
               <Link
                 className="button button--secondary button--lg"
                 to="https://generals.io">
-                Play generals.io
+                Play Generals.io
               </Link>
             </div>
           </div>
