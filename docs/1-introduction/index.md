@@ -16,7 +16,7 @@ We present an agent development and data collection framework for GIO:
 - supports rapid development and testing of AI agents
 - uses [Redis](https://redis.io/) message broker for all communication
 - enables real-time data collection and analysis of agent performance
-- includes example notebooks ([here](gg-analysis.ipynb) and [DeepNote](https://deepnote.com/workspace/insights-island-2232debf-8efe-49d0-80d9-20d155a36301/project/generalsio-analysis-51d1567e-7054-4223-9aa2-98354e1dc291/notebook/fetch-and-plot-f69012bef9f04e27aae6a600cd811276)) for interactive data analysis
+- includes example notebooks ([here](https://github.com/CorsairCoalition/docs/blob/main/gg-analysis.ipynb) and [DeepNote](https://deepnote.com/workspace/insights-island-2232debf-8efe-49d0-80d9-20d155a36301/project/generalsio-analysis-51d1567e-7054-4223-9aa2-98354e1dc291/notebook/fetch-and-plot-f69012bef9f04e27aae6a600cd811276)) for interactive data analysis
 
 
 ## Support
