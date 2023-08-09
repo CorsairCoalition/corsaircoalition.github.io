@@ -8,8 +8,8 @@
 Use the following commands to test:
 
 ```sh
-$ docker version
-$ docker compose version
+docker version
+docker compose version
 ```
 
 ## Setup
@@ -19,14 +19,14 @@ $ docker compose version
 2. Make a copy of the example configuration file, `config.json.example` and change the `userId`, `username`, and other variables as desired.
 
 ```sh
-$ cp config.json.example config.json
-$ sed -i "s/RANDOMLY_GENERATED_STRING/$(openssl rand -base64 12)/" config.json
+cp config.json.example config.json
+sed -i "s/RANDOMLY_GENERATED_STRING/$(openssl rand -base64 12)/" config.json
 ```
 
 3. Run background services. This command will start Docker containers for the framework components: [SergeantSocket](https://github.com/CorsairCoalition/SergeantSocket), [ArmadaAssault](https://github.com/CorsairCoalition/ArmadaAssault), [Redis](https://redis.io/).
 
 ```sh
-$ docker compose up
+docker compose up
 ```
 
 4. Ignore the Redis-related warnings. When you see "READY TO PLAY", continue to the next step.
@@ -36,7 +36,7 @@ $ docker compose up
 6. Execute the following command:
 
 ```sh
-$ docker compose run commander-cortex
+docker compose run commander-cortex
 ```
 
 The Commander Cortex UI should appear. You are now ready to play against other bots or humans.
