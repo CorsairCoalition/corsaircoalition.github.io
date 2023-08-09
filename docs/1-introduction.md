@@ -22,3 +22,22 @@ We present an agent development and data collection framework for GIO:
 ## Support
 
 - [Discord: generals.io](https://discord.com/invite/QP63V5Y) -> #botting
+
+# Architecture
+
+## Components
+
+- [CommanderCortex](https://github.com/CorsairCoalition/CommanderCortex) - UI to control and monitor bots
+- [SergeantSocket](https://github.com/CorsairCoalition/SergeantSocket) - IO module to relay data between game server and backend
+- [ArmadaAssault](https://github.com/CorsairCoalition/ArmadaAssault) - bot components that generate action recommendations
+- [StrategySentinel](https://github.com/CorsairCoalition/StrategySentinel) - bot component that selects appropriate action
+- [ReplayRanger](https://github.com/CorsairCoalition/ReplayRanger) -  replay GIO game events on Redis for bot development
+- [Flobot](https://github.com/CorsairCoalition/Flobot) - highly capable bot that serves as a baseline adversary for testing
+
+## Framework Design
+
+![Framework Architecture](/img/gg-architecture.png)
+
+# User Interface
+
+![Commander Cortex](/img/commandercortex.png)
