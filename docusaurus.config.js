@@ -71,14 +71,14 @@ const config = {
             label: 'Framework',
           },
           {
-            to: 'getting-started/setup',
+            to: 'setup',
             position: 'left',
-            label: 'Installation',
+            label: 'Install',
           },
           {
-            to: 'getting-started/development',
+            to: 'development',
             position: 'left',
-            label: 'Development',
+            label: 'Develop',
           },
           {
             href: 'https://github.com/CorsairCoalition/docs#readme',

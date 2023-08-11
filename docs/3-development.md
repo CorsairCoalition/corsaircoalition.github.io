@@ -1,12 +1,18 @@
-# Configuring for Development
-Below, you'll learn how to configure a 1-on-1 match between two python bots. You will need to create a config for each bot and reference them in `docker-compose.yaml`. The directory structure should look like this when you're finished:
+# Python Bot Development
 
+Below, you'll learn how to configure a 1-on-1 match between two python bots. Begin by cloning/downloading the [PyBot](https://github.com/CorsairCoalition/PyBot) repository. The remainder of this guide will show you how to update your `docker-compose.yml` and setup your bots' config.json files.
+
+```sh
+git clone https://github.com/CorsairCoalition/PyBot
+```
+
+The directory structure should look like this when you're finished following this guide:
 ```sh
 ├── CorsairCoalition/
 │ ├── docs/
 │ │ ├── images/
 │ │ ├── ... 
-│ │ └── docker-compose.yaml
+│ │ └── docker-compose.yml
 │ ├── PyBot/
 │ │ ├── ggbot/
 | | └── example_afkbot.py
@@ -14,7 +20,11 @@ Below, you'll learn how to configure a 1-on-1 match between two python bots. You
 │ └── config.pybot2.json
 ```
 
-## Bot configuration (config.pybot*.json)
+
+## Configuration
+You will need to create a config for each bot and reference them in `docker-compose.yml`. 
+
+### Bot configuration (config.pybot*.json)
 Each bot needs its own configuration file. These config files are in JSON format and provide the bot several important pieces of information, namely how to connect to Redis, unique user Id, unique user name, and the game server URL. 
 
 Here's an example configuration from `config.pybot1.json` (c.f. [GitHub](https://github.com/CorsairCoalition/docs/blob/main/config.json.example)):
@@ -47,7 +57,7 @@ Here's an example configuration from `config.pybot1.json` (c.f. [GitHub](https:/
 > [!important]
 > You must provide a unique `userId` and `username` for each bot!
 
-### gameConfig section
+#### gameConfig section
 The game configuration parameters are as follows:
 - `GAME_SERVER_URL`: the server to which you are connecting. Unless you use a local server
 - `MAX_TURNS`: The GG Framework will terminate the game if it lasts this many turns. 
@@ -59,15 +69,16 @@ The game configuration parameters are as follows:
 
 > [!note]
 > Only the lobby Host can change the custom game speed. If a human joins before a bot, the default game speed (1x) is used. You can adjust this by selecting 'Game' on the lobby screen, and choosing the desired Game Speed.
-### redisConfig section
+
+#### redisConfig section
 This section of the config should only be changed if you are connecting to a remote instance of Redis. For local connections, the `USERNAME` and `PASSWORD` fields must be blank (as shown above).
 
-## Configuring Docker services (docker-compose.yaml)
-[Docker Compose](https://docs.docker.com/get-started/08_using_compose) is a tool that helps define and share multi-container applications. The YAML file included with the GG Framework defines the services available and with a single command, you can spin up everything, spin up only certain services, or tear it all down. 
+### Configuring Docker services (docker-compose.yml)
+[Docker Compose](https://docs.docker.com/get-started/08_using_compose) is a tool that helps define and share multi-container applications. The yml file included with the GG Framework defines the services available and with a single command, you can spin up everything, spin up only certain services, or tear it all down. 
 
-In the GG Framework, Sergeant-Socket, Commander-Cortex, and Redis are all spun-up according to the configuration in the YAML file. Here's an example YAML that is suitable for running two python bots against one another:
+In the GG Framework, Sergeant-Socket, Commander-Cortex, and Redis are all spun-up according to the configuration in the yml file. Here's an example yml that is suitable for running two python bots against one another:
 
-```yaml
+```yml
 services:
   
   # Define the Redis service and expose the localhost's port
@@ -131,11 +142,11 @@ services:
 
 ```
 
-Although a deep-dive into Docker YAML format is outside the scope of this guide, a few points are helpful for beginners:
-- Unlike other formats that define key:value pairs, docker YAML format uses value:key ordering. For instance, the CommanderCortex looks for a `/config.json` (the key), and the services look to `../config.pybot*.json` for its content (the value).
+Although a deep-dive into Docker yml format is outside the scope of this guide, a few points are helpful for beginners:
+- Unlike other formats that define key:value pairs, docker yml format uses value:key ordering. For instance, the CommanderCortex looks for a `/config.json` (the key), and the services look to `../config.pybot*.json` for its content (the value).
 - It's best to run CommanderCortex in its own terminal since it is a UI app whose interface would be disturbed by terminal outputs from Redis and SergeantSocket. By adding `profiles: - ui`  to the CommanderCortex services, docker will not start those services when we run `docker compose up`; it'll wait until we explicitly use `docker compose run commander-cortex-1` or `docker compose run commander-cortex-2`, which we can do from a separate terminal.
 
-## Testing your configuration
+### Testing your configuration
 You'll now test your configuration by starting a match between an AFK bot and Flobot. 
 
 Assuming your folder structure matches the one above (see [[# Configuring for Development]]), open a terminal, navigate to the `CommanderCortex/docs/` directory, and run the following to start Redis and start one instance of SergeantSocket for each of your bots:
@@ -145,6 +156,7 @@ Assuming your folder structure matches the one above (see [[# Configuring for De
 You can safely ignore the Redis-related warnings. When you see "`[READY TO PLAY]`", continue to the next step. 
 
 Now run each of the following commands in their own terminal:
+
 1. Terminal 1:
    ```sh 
    docker compose run commander-cortex-1
@@ -155,16 +167,19 @@ Now run each of the following commands in their own terminal:
    ```
 
 Finally, navigate to the `CorsairCoalition/PyBot/` directory and run the following commands in their own terminals:
-3. Terminal 3: 
+
+3. Terminal 3:
    ```sh 
    python example_afkbot.py -c config.pybot1.json
    ```
+
 4. Terminal 4: 
    ```sh
    python example_flobot.py -c config.pybot2.json
-```
+   ```
 
-# Implementing your own bot
+## Implementing your own bot
+
 Implementing your own bot begins by subclassing PythonBot from ggbot.core.
 The only method you **must** override is `do_turn()`.
 For example:
@@ -183,7 +198,7 @@ Access game state via your bot's `self.game` field. See the source code comments
 
 To connect your bot to the rest of the framework, you'll need to configure it properly. The easiest way to do this is to read in the config.json, and there's two utility methods to accomplish this: `ggbot.utils.get_config_from_file(file_path)` designed to help run bots from within an IDE, and `ggbot.utils.get_config_from_cmdline_args()` designed to help run bots from the command line.
 
-## Running from an IDE
+### Running from an IDE
 The `ggbot.utils.get_config_from_file(file_path)` method uses a path string to read the config file. This is helpful when actively debugging within an IDE. 
 ```python
 if __name__ == "__main__":
@@ -191,7 +206,7 @@ if __name__ == "__main__":
     MyFirstBot().with_config(config).run()
 ```
 
-## Running from the terminal
+### Running from the terminal
 The `ggbot.utils.get_config_from_cmdline_args()` method allows you to specify the path to the config via command line arguments.
 ```python
 if __name__ == "__main__":
@@ -204,19 +219,14 @@ Then run your bot from the terminal with:
 python example_afkbot.py -c config.json
 ```
 
-# Example bots
+## Example bots
 The GG Framework comes with several example bots that can help users get started. 
 They are defined in several `example_*.py` files, discussed below
 
-## AFK Bot (example_afkbot.py)
-The "Away From Keyboard" (AFK) bot is simplest bot we could conceive, and a great tool to ensure your development environment is configured correctly. 
-> [!warning]
-> Do not run two AFK bots in the same lobby unless your `MAX_TURNS` is set to a low number. Otherwise, your bot Id will be unusable until a GIO admin ends the game.
-
-## Random Bot (example_randombot.py)
+### Random Bot (example_randombot.py)
 The Random Bot chooses a valid army at random and moves it to a randomly selected adjacent tile. Unlike the AFK bot which makes no moves, the Random Bot will issue movements using the `move()` method. For your own bots, know that multiple calls to `move()` can be issued in a single turn, and the moves will be handled in the order they arrive.
 
-## PathFinderBot Bot (example_pathfinderbot.py)
+### PathFinderBot Bot (example_pathfinderbot.py)
 The PathFinder Bot demonstates how to use the multi-target aStar algorithm to obtain a sequence of moves along a path. At regular intervals (every 12 game ticks) it picks its largest army and moves it to a randomly selected tile on the board. It also performs some simple checks to ensure a previous move is not still underway and that it is moving an army with a strength >1. 
 
 For convenience, a PythonBot can enqueue the entire path selected by aStar using the `queue_moves()` method. This will treat neighboring tile indices in the list as the start and end of consecutive moves. For instance, `queue_moves([1, 2, 3, 19])` is equivalent to:
@@ -225,7 +235,7 @@ move(1,2)
 move(2,3)
 move(3,19)
 ```
-## Flobot (example_flobot.py)
+### Flobot (example_flobot.py)
 This is a Python port of Flobot, an example of a much more complex bot. The `do_turn()` method is remarkably simple because its logic is relegated to a `Strategy` class whose `pick_strategy()` method determines which actions to take:
 ```python
 def pick_strategy(bot: 'FloBot'):
