@@ -177,6 +177,7 @@ class MyFirstBot(PythonBot):
 	def do_turn(self) -> None:
 		# implement your bot's code below
 ```
+You can safely ignore the Redis-related warnings. When you see "`[READY TO PLAY]`", continue to the next step. 
 
 Access game state via your bot's `self.game` field. See the source code comments for more details.
 
