@@ -10,7 +10,9 @@ We wrapped each service in [OCI-compatible images](https://opencontainers.org/) 
 <details><summary>Non-Docker Option</summary>
 <p>
 
-Running these components without Docker requires running each service individually using their individual instructions. This is typically a one-line command but requires [NodeJS](https://nodejs.org/en) installed in your environment. Once you ensure that you are running the latest version of `node` and `npm`, open separate terminals for each process and run the services individually. We developed and tested all components with NodeJS version 20.
+Running these components without Docker requires executing each service individually using its individual instructions. This is typically a simple one-line command but requires [NodeJS](https://nodejs.org/en) installed in your environment. Launch separate terminals for each process and run the services starting with your instance of Redis. Use the same configuration file for all components to enable them to communicate using Redis.
+
+Ensure that you are running the latest version of `node` and `npm`. We developed and tested all components with NodeJS version 20.
 
 Warning: Do not install NodeJS directly from Ubuntu repositories, since they often tend to be out of date. Use the [NodeSource](https://github.com/nodesource/distributions) as instructed in the NodeJS official guide.
 </p></details>
@@ -28,6 +30,19 @@ Use the following commands to test:
 docker version
 docker compose version
 ```
+
+## Docker Compose Notes
+
+The following list of `docker compose` commands serves as a quick reference:
+
+- `docker compose config`: validates and display the parsed contents of the compose file
+- `docker compose pull`: grab the latest version of images referenced in the compose file
+- `docker compose build`: locally build services from folders specified in the `build` property
+- `docker compose up`: brings up all services except the ones that contain a `profile` property
+- `docker compose up --abort-on-container-exit`: stops all containers if anything crashes
+- `docker compose start SERVICE_NAME`: start SERVICE_NAME in foreground and required services in background
+- `docker compose down --remove-orphans`: stop running services and remove associated containers
+- `docker compose ps`: show all running containers
 
 ## Setup
 
@@ -99,7 +114,7 @@ To develop the brains of the bot using Python, ensure you use the appropriate do
 printf YOUR_RANDOMLY_GENERATED_USER_ID | sha256sum | cut -d ' ' -f 1 | xxd -r -p | base64 | head -c 43 | tail -c 7
 ```
 
-2. See the TypeScript [type declaration file](https://github.com/CorsairCoalition/common/blob/master/src/types.d.ts) to understand the underlying data structures.
+2. See the TypeScript [type declaration file](https://github.com/CorsairCoalition/common/blob/master/src/types.d.ts) to understand the underlying data structures. Use a Redis inspector such as [RedisInsight](https://redis.com/redis-enterprise/redis-insight/) to interactively inspect PubSub event streams and key store.
 
 3. Use a [Redis client](https://redis.io/resources/clients/) to communicate with your Redis instance. Framework components use the following channels to broadcast their updates:
 
@@ -109,5 +124,4 @@ printf YOUR_RANDOMLY_GENERATED_USER_ID | sha256sum | cut -d ' ' -f 1 | xxd -r -p
 - `cortex-{botId}-gameUpdate`: low-level turn-by-turn game updates; use game state key instead
 - `cortex-{botId}-recommendation`: ArmadaAssault uses this to broadcast generated actions
 - `cortex-{botId}-action`: **bot logic sends actions here**
-
 - Game state is published at each tick to a hash key `cortex-{botId}-{gameReplayId}`.
