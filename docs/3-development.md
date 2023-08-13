@@ -67,7 +67,7 @@ The game configuration parameters are as follows:
 - `userId`:  The UUID for this bot. This string must be unique across all bots and is paired with a unique username
 - `username`: The (unique) bot name displayed during matches on the GIO servers. This MUST begin with the "[Bot] " tag.
 - `customGameId`: This is the name of the custom room your bot will join. By default, you can spectate at https://bot.generals.io/games/customGameId
-- `customGameSpeed`: An number from \[0.25, 0.5, 0.75, 1, 2, 3, 4]. The server tick rate will be mulitplied by this factor. By default, the servers execute 2 game ticks per second. For instance, if `customGameSpeed` is set to 4, the server will process $2\times 4=8$ ticks per second.
+- `customGameSpeed`: An number from \[0.25, 0.5, 0.75, 1, 2, 3, 4]. The server tick rate will be mulitplied by this factor. By default, the servers execute 2 game ticks per second. For instance, if `customGameSpeed` is set to 4, the server will process 8 ticks per second.
 
 > Note: Only the lobby Host can change the custom game speed. If a human joins before a bot, the default game speed (1x) is used. You can adjust this by selecting 'Game' on the lobby screen, and choosing the desired Game Speed.
 
