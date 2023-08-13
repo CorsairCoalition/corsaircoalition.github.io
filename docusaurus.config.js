@@ -81,10 +81,10 @@ const config = {
             label: 'Analyze',
           },
           {
-            href: 'https://github.com/CorsairCoalition/docs#readme',
+            href: 'https://github.com/CorsairCoalition',
             position: 'right',
             className: 'header-github-link',
-            'aria-label': 'GitHub repository',
+            'aria-label': 'GitHub Organization',
           },
         ],
       },
