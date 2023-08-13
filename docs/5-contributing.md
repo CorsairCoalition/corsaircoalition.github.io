@@ -14,9 +14,9 @@ Most of the example bots are driven by heuristics. An RL bot can adjusts its mov
 
 Our framework is highly modular. While [SergeantSocket](https://github.com/CorsairCoalition/SergeantSocket) connects directly to the GIO servers, the rest of the framework is decoupled from the data format and inner workings GIO. Any map-based game that follows similar rules can be played using this framework by developing an IO module (adapter) for that game.
 
-## Getting Started
+## Code of Conduct
 
-See [Setup](/setup) and [Development](/development) sections.
+We adhere to the [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/).
 
 ## Support
 

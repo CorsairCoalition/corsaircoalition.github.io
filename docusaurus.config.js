@@ -66,11 +66,6 @@ const config = {
         },
         items: [
           {
-            to: 'introduction',
-            position: 'left',
-            label: 'Framework',
-          },
-          {
             to: 'setup',
             position: 'left',
             label: 'Install',
@@ -79,6 +74,11 @@ const config = {
             to: 'development',
             position: 'left',
             label: 'Develop',
+          },
+          {
+            to: 'analysis',
+            position: 'left',
+            label: 'Analyze',
           },
           {
             href: 'https://github.com/CorsairCoalition/docs#readme',
