@@ -44,11 +44,11 @@ For Python bot development, use `docker-compose.pybot.on.flobot.yml` or `docker-
 To run the example implementation in TypeScript, use `docker-compose.typescript.yml`. This includes a rudimentary bot that uses [ArmadaAssault](https://github.com/CorsairCoalition/ArmadaAssault) to generate actions and [StrategySentinel](https://github.com/CorsairCoalition/StrategySentinel) to select the appropriate action.
 
 ```sh
-# TypeScript Bot Development
-cp docs/docker-compose-examples/docker-compose.typescript.yml docker-compose.yml
+cp docs/docker-compose-examples/docker-compose.typescript.yml docker-compose.yml # TypeScript Bot Development
+```
 
-# Python Bot Development
-cp docs/docker-compose-examples/docker-compose.pybot.on.flobot.yml docker-compose.yml
+```sh
+cp docs/docker-compose-examples/docker-compose.pybot.on.flobot.yml docker-compose.yml # Python Bot Development
 ```
 
 3. Make a copy of the example configuration file, `config.example.json` and change the `userId` and `username` at a minimum. Change the `customGameId` to your desired room.
