@@ -61,13 +61,14 @@ Here is an example configuration from `config.pybot1.json` (c.f. [GitHub](https:
 
 #### gameConfig section
 The game configuration parameters are as follows:
-- `GAME_SERVER_URL`: the server to which you are connecting. Unless you use a local server
-- `MAX_TURNS`: The GG Framework will terminate the game if it lasts this many turns.
-- `BOT_ID_PREFIX`: Redis will store all messages from this bot in a key-value store with this prefix
-- `userId`:  The UUID for this bot. This string must be unique across all bots and is paired with a unique username
+- `GAME_SERVER_URL`: the server to which you are connecting
+- `GAME_WEBAPP_URL`: the website link that is displayed in the user interface
+- `MAX_TURNS`: terminate the game if it lasts this many turns
+- `BOT_ID_PREFIX`: used for Redis messaging channels and key-value stores
+- `userId`:  The UUID for this bot. This string must be unique across all bots and is paired with a unique username.
 - `username`: The (unique) bot name displayed during matches on the GIO servers. This MUST begin with the "[Bot] " tag.
 - `customGameId`: This is the name of the custom room your bot will join. By default, you can spectate at https://bot.generals.io/games/customGameId
-- `customGameSpeed`: An number from \[0.25, 0.5, 0.75, 1, 2, 3, 4]. The server tick rate will be mulitplied by this factor. By default, the servers execute 2 game ticks per second. For instance, if `customGameSpeed` is set to 4, the server will process 8 ticks per second.
+- `customGameSpeed`: A number from `[0.25, 0.5, 0.75, 1, 2, 3, 4]`. The server tick rate will be mulitplied by this factor. By default, the servers execute 2 game ticks per second. For instance, if `customGameSpeed` is set to 4, the server will process 8 ticks per second.
 
 > Note: Only the lobby Host can change the custom game speed. If a human joins before a bot, the default game speed (1x) is used. You can adjust this by selecting 'Game' on the lobby screen, and choosing the desired Game Speed.
 

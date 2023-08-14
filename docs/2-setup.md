@@ -43,6 +43,7 @@ The following list of `docker compose` commands serves as a quick reference:
 - `docker compose start SERVICE_NAME`: start SERVICE_NAME in foreground and required services in background
 - `docker compose down --remove-orphans`: stop running services and remove associated containers
 - `docker compose ps`: show all running containers
+- `docker system prune -a`: delete all docker artifacts and start fresh
 
 ## Setup
 
@@ -72,8 +73,11 @@ Note:  According to the GIO official developer documentation, bot names must sta
 
 ```sh
 cp docs/config.example.json config.json
-sed -i "s/RANDOMLY_GENERATED_STRING/$(openssl rand -base64 12)/" config.json
-sed -i "s/UNIQUE_DISPLAY_NAME/$(openssl rand -base64 12)/" config.json
+
+# use sed to replace RANDOMLY_GENERATED_STRING with a randomly generated string in config.json
+sed -i "s/RANDOMLY_GENERATED_STRING/$(cat /dev/random | tr -cd [:alnum:] | head -c 12)/" config.json
+
+# NOTE: manually change UNIQUE_DISPLAY_NAME in your config file to your desired display name
 ```
 
 4. Start background services. This command will start Docker containers for your framework components except CommanderCortex. CommanderCortex is a terminal-based application that requires total access to the current terminal and is incompatible with `docker compose up`.
